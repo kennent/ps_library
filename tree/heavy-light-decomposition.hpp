@@ -53,11 +53,11 @@ struct HeavyLightDecomposition {
       while (top[u] != top[v]) {
         if (d[top[u]] < d[top[v]]) swap(u, v);
         int st = top[u];
-        r = Sop(r, seg.prod(in[st], in[u]));
+        r = Sop(r, seg.prod(in[st], in[u]+1));
         u = p[st];
       }
       if (d[u] > d[v]) swap(u, v);
-      r = Sop(r, seg.prod(in[u], in[v]));
+      r = Sop(r, seg.prod(in[u], in[v]+1));
       return r;
     }
     
