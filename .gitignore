@@ -1,0 +1,4 @@
+*.exe
+/contest/*
+output.cpp
+input.txt
