@@ -48,6 +48,16 @@ struct HeavyLightDecomposition {
       // init_seg();
     }
 
+    int lca(int u, int v) {
+      while (top[u] != top[v]) {
+        if (d[top[u]] < d[top[v]]) swap(u, v);
+        int st = top[u];
+        u = p[st];
+      }
+      if (d[u] > d[v]) swap(u, v);
+      return u;
+    }
+
     S query(int u, int v) {
       S r = Se();
       while (top[u] != top[v]) {
@@ -57,7 +67,7 @@ struct HeavyLightDecomposition {
         u = p[st];
       }
       if (d[u] > d[v]) swap(u, v);
-      r = Sop(r, seg.prod(in[u], in[v]+1));
+      r = Sop(r, seg.prod(in[u]+1, in[v]+1));
       return r;
     }
     
