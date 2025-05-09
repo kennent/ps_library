@@ -5,6 +5,7 @@ setup(
   version="0.1.0",
   packages=find_packages(),
   install_requires=[
+    'online-judge-verify-helper'
     # 依存パッケージが
   ],
   author="kennent",
