@@ -27,10 +27,14 @@ pair<WeightedEdges<T>, WeightedFIDXEdges<T>> w_fidx_graph(int n, int m = -1, boo
   WeightedEdges<T> wg;
   WeightedFIDXEdges<T> g(n), c(n);
   if (m == -1) m = n-1;
+  int ui = 1;
   while (m--) {
     int u, v;
     T w;
-    cin >> u >> v >> w;
+    cin >> u >> v;
+    // cin >> v;
+    // u = ++ui;
+    w=0;
     if (is_1idx) u--, v--;
     wg.emplace_back(u, v, w);
     g[u].push_back({v, w});
