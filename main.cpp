@@ -15,7 +15,7 @@ S op (S a, S b) {
   else if (a.x > b.x) return {b.x, min(a.x, b.y)};
   else return {a.x, min(a.y, b.y)};
 }
-S e() { return {MAX, MAX}; }
+S e() { return {MAX, MAX};  }
 ll r = MAX*100;
 
 void kENN3N::solve() {
