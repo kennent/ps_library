@@ -5,8 +5,15 @@ setup(
   version="0.1.0",
   packages=find_packages(),
   install_requires=[
-    'online-judge-verify-helper'
-    # 依存パッケージが
+    'online-judge-verify-helper',
+    'subprocess',
+    'sys',
+    're',
+    'io',
+    'os',
+    'datetime',
+    'Enum',
+    # 依存パッケージ
   ],
   author="kennent",
   description="Problem solving library",
