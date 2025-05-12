@@ -7,19 +7,20 @@ template <typename T, class S, auto Sop, auto Se>
 struct HeavyLightDecomposition {
   // private:
   public:
-    int root, eid;
-    vector<int> sz, d, p, top, in, out, vis;
+    int root, eid, fid;
+    vector<int> sz, d, p, top, in, out, vis, id;
     vector<T> x;
     WeightedFIDXEdges<T> c;
     atcoder::segtree<S, Sop, Se> seg;
-    void dfs1(int v, int pv = -1) {
+    void dfs1(int v, int pv = -1, int cid = -1) {
       vis[v] = 1;
       sz[v] = 1;
+      id[v] = cid;
       for (auto &e: c[v]) {
         if (e.first == pv) continue;
         d[e.first] = d[v]+1;
         p[e.first] = v;
-        dfs1(e.first, v);
+        dfs1(e.first, v, cid);
         sz[v] += sz[e.first];
         if (sz[e.first] > sz[c[v][0].first]) swap(e, c[v][0]);
       }
@@ -40,17 +41,19 @@ struct HeavyLightDecomposition {
       : c(g),
         root(_root),
         eid(0),
+        fid(0),
         sz(g.size(), 0),
         d(g.size(), 0),
         x(g.size(), 0),
         in(g.size(), -1),
         out(g.size(), -1),
         vis(g.size(), 0),
+        id(g.size(), 0),
         seg(atcoder::segtree<S, Sop, Se>(g.size()+1)),
         top(g.size(), root),
         p(g.size(), root) {
-      dfs1(root);
-      dfs2(root);
+      for (int i = 0; i < g.size(); i++) if (vis[i] != 1) dfs1(i, -1, fid++);
+      for (int i = 0; i < g.size(); i++) if (vis[i] != 2) dfs2(i);
       // init_seg();
     }
 
@@ -69,7 +72,7 @@ struct HeavyLightDecomposition {
       return u;
     }
 
-    S query(int u, int v) {
+    S query(int u, int v, int inc_start = 0) {
       S r = Se();
       while (top[u] != top[v]) {
         if (d[top[u]] < d[top[v]]) swap(u, v);
@@ -78,7 +81,7 @@ struct HeavyLightDecomposition {
         u = p[st];
       }
       if (d[u] > d[v]) swap(u, v);
-      r = Sop(r, seg.prod(in[u]+1, in[v]+1));
+      r = Sop(r, seg.prod(in[u]+inc_start, in[v]+1));
       return r;
     }
     
@@ -147,9 +150,7 @@ struct LazyHeavyLightDecomposition {
         top(g.size(), root),
         p(g.size(), root) {
       for (int i = 0; i < g.size(); i++) if (vis[i] != 1) dfs1(i);
-      // dfs1(root);
       for (int i = 0; i < g.size(); i++) if (vis[i] != 2) dfs2(i);
-      // dfs2(root);
       // init_seg();
     }
 
@@ -168,20 +169,28 @@ struct LazyHeavyLightDecomposition {
       return u;
     }
 
-    S query(int u, int v) {
+    S query(int u, int v, int inc_start = 0) {
+      S l = Se();
       S r = Se();
       while (top[u] != top[v]) {
-        if (d[top[u]] < d[top[v]]) swap(u, v);
-        int st = top[u];
-        r = Sop(r, seg.prod(in[st], in[u]+1));
-        u = p[st];
+        // if (d[top[u]] < d[top[v]]) swap(u, v);
+        if (d[top[u]] > d[top[v]]) {
+          int st = top[u];
+          l = Sop(seg.prod(in[st], in[u]+1), l);
+          u = p[st];
+        } else {
+          int st = top[v];
+          r = Sop(seg.prod(in[st], in[v]+1), r);
+          v = p[st];
+        }
       }
-      if (d[u] > d[v]) swap(u, v);
-      r = Sop(r, seg.prod(in[u]+1, in[v]+1));
-      return r;
+      if (d[u] < d[v]) r = Sop(seg.prod(in[u]+inc_start, in[v]+1), r);
+      else l = Sop(seg.prod(in[v]+inc_start, in[u]+1), l);
+      swap(l.lsum, l.rsum);
+      return Sop(l, r);
     }
 
-    void apply(int u, int v, F x) {
+    void apply(int u, int v, F x, int inc_start = 0) {
       while (top[u] != top[v]) {
         if (d[top[u]] < d[top[v]]) swap(u, v);
         int st = top[u];
@@ -189,7 +198,7 @@ struct LazyHeavyLightDecomposition {
         u = p[st];
       }
       if (d[u] > d[v]) swap(u, v);
-      seg.apply(in[u]+1, in[v]+1, x);
+      seg.apply(in[u]+inc_start, in[v]+1, x);
     }
     
   /*

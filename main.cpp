@@ -1,45 +1,65 @@
 #include "./template/template.hpp"
 #include "./template/fast-IO.hpp"
-#include "./tree/minimum-spanning-tree.hpp"
+#include "./graph/graph-template.hpp"
 #include "./tree/heavy-light-decomposition.hpp"
 
 using namespace kENN3N;
 
 int n, m;
-const ll MAX = 1'234'567'890;
 struct S {
-  int x, y;
+  bool check;
+  ll lsum, rsum, msum, sum, len;
+  S(ll x = 0, ll c = false) { lsum = rsum = msum = sum = x; len = check = c; }
+  S(ll lsum, ll rsum, ll msum, ll sum, ll len): lsum(lsum), rsum(rsum), msum(msum), sum(sum), len(len) {
+    check = true;
+  }
 };
-S op (S a, S b) {
-  if (a.x < b.x) return {a.x, min(a.y, b.x)};
-  else if (a.x > b.x) return {b.x, min(a.x, b.y)};
-  else return {a.x, min(a.y, b.y)};
+using F = ll;
+const F ID = 11111;
+S op(S a, S b) {
+  if (!a.check || !b.check) {
+    if (!a.check && !b.check) return S();
+    if (!a.check) return b;
+    else if (!b.check) return a;
+  }
+  ll lsum = max(a.lsum, a.sum+b.lsum);
+  ll rsum = max(b.rsum, a.rsum+b.sum);
+  ll msum = max({a.msum, b.msum, lsum, rsum, a.rsum+b.lsum});
+  ll sum = a.sum+b.sum;
+  return S(lsum, rsum, msum, sum, a.len+b.len);
 }
-S e() { return {MAX, MAX}; }
-ll r = MAX*100;
+S e() { return S(); }
+S mapping(F f, S x) {
+  if (f == ID) return x;
+  ll r = f*x.len;
+  return S(r, r, r, r, x.len);
+}
+F composition(F f, F g) { return (f == ID ? g : f); }
+F id() { return ID; }
+vector<int> v;
 
 void kENN3N::solve() {
   fastIO();
-  cin >> n >> m;
-  MinimumSpanningTree<int> mst(n, m);
 
-  if (mst.g.size()+1 != n) {
-    cout << -1;
-    return;
-  }
+  cin >> n;
+  v = vector<int>(n);
+  for (int i = 0; i < n; i++) cin >> v[i];
+  auto [wg, g] = w_fidx_graph<int>(n);
+  LazyHeavyLightDecomposition<int, S, op, e, F, mapping, composition, id> hld(g);
+  for (int i = 0; i < n; i++) hld.seg.set(hld.in[i], S(v[i], true));
 
-  LazyHeavyLightDecomposition<int, S, op, e, S, op, op, e> hld(mst.adjg);
-  for (int i = 0; i < n; i++) hld.seg.set(i, {MAX, MAX});
-  for (auto e: mst.ng) hld.apply(e.u, e.v, {e.w, MAX});
-  for (auto e: mst.v) {
-    bool isfind = false;
-    for (auto ee: mst.adjg[e.u]) if (ee.first == e.v && ee.second == e.w) isfind = true;
-    if (isfind) {
-      S x = (hld.p[e.u] == e.v ? hld.seg.get(hld.in[e.u]) : hld.seg.get(hld.in[e.v]));
-      if (x.x != MAX && x.x != e.w) r = min(r, mst.sum+x.x-e.w);
-      else if (x.y != MAX) r = min(r, mst.sum+x.y-e.w);
+  cin >> m;
+  while (m--) {
+    int t, u, v, w;
+    cin >> t >> u >> v;
+    u--, v--;
+    if (t == 1) {
+      if (hld.in[u] > hld.in[v]) swap(u, v);
+      auto r = hld.query(u, v);
+      cout << max(0LL, r.msum) << "\n";
+    } else {
+      cin >> w;
+      hld.apply(u, v, w);
     }
   }
-  if (r != MAX*100) cout << r;
-  else cout << -1;
 }
