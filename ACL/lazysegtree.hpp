@@ -1,5 +1,6 @@
 #ifndef ATCODER_LAZYSEGTREE_HPP
 #define ATCODER_LAZYSEGTREE_HPP 1
+// reference: AtCoder Library
 
 #include <algorithm>
 #include <cassert>

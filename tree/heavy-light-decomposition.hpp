@@ -2,7 +2,9 @@
 #include "../ACL/segtree.hpp"
 #include "../ACL/lazysegtree.hpp"
 #include "../graph/graph-template.hpp"
-
+// reference: https://justicehui.github.io/hard-algorithm/2020/01/24/hld/
+// reference: https://nyaannyaan.github.io/library/tree/heavy-light-decomposition.hpp
+namespace kENN3N {
 template <typename T, class S, auto Sop, auto Se>
 struct HeavyLightDecomposition {
   // private:
@@ -217,3 +219,4 @@ struct LazyHeavyLightDecomposition {
   
   */
 };
+} // namespace kENN3N

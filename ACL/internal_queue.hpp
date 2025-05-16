@@ -1,5 +1,6 @@
 #ifndef ATCODER_INTERNAL_QUEUE_HPP
 #define ATCODER_INTERNAL_QUEUE_HPP 1
+// reference: AtCoder Library
 
 #include <vector>
 

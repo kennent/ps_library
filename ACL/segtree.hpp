@@ -1,5 +1,6 @@
 #ifndef ATCODER_SEGTREE_HPP
 #define ATCODER_SEGTREE_HPP 1
+// reference: AtCoder Library
 
 #include <algorithm>
 #include <cassert>

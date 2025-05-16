@@ -1,5 +1,6 @@
 #ifndef ATCODER_TWOSAT_HPP
 #define ATCODER_TWOSAT_HPP 1
+// reference: AtCoder Library
 
 #include <cassert>
 #include <vector>

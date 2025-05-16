@@ -1,5 +1,6 @@
 #ifndef ATCODER_MODINT_HPP
 #define ATCODER_MODINT_HPP 1
+// reference: AtCoder Library
 
 #include <cassert>
 #include <numeric>

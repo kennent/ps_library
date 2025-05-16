@@ -1,5 +1,6 @@
 #ifndef ATCODER_MINCOSTFLOW_HPP
 #define ATCODER_MINCOSTFLOW_HPP 1
+// reference: AtCoder Library
 
 #include <algorithm>
 #include <cassert>

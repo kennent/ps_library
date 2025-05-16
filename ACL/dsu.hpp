@@ -1,6 +1,6 @@
 #ifndef ATCODER_DSU_HPP
 #define ATCODER_DSU_HPP 1
-
+// reference: AtCoder Library
 #include <algorithm>
 #include <cassert>
 #include <vector>

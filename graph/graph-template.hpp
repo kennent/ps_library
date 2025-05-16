@@ -1,5 +1,5 @@
 #pragma once
-
+namespace kENN3N {
 template <typename T = int>
 struct Edge {
   int from, to;
@@ -54,3 +54,4 @@ pair<WeightedEdges<T>, WeightedFIDXEdges<T>> w_fidx_graph(int n, int m = -1, boo
   }
   return {wg, c};
 }
+} // namespace kENN3N

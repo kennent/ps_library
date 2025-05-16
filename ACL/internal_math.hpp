@@ -1,5 +1,6 @@
 #ifndef ATCODER_INTERNAL_MATH_HPP
 #define ATCODER_INTERNAL_MATH_HPP 1
+// reference: AtCoder Library
 
 #include <utility>
 

@@ -1,5 +1,6 @@
 #ifndef ATCODER_STRING_HPP
 #define ATCODER_STRING_HPP 1
+// reference: AtCoder Library
 
 #include <algorithm>
 #include <cassert>

@@ -1,5 +1,6 @@
 #ifndef ATCODER_INTERNAL_CSR_HPP
 #define ATCODER_INTERNAL_CSR_HPP 1
+// reference: AtCoder Library
 
 #include <algorithm>
 #include <utility>

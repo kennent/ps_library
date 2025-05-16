@@ -1,5 +1,6 @@
 #ifndef ATCODER_INTERNAL_BITOP_HPP
 #define ATCODER_INTERNAL_BITOP_HPP 1
+// reference: AtCoder Library
 
 #ifdef _MSC_VER
 #include <intrin.h>

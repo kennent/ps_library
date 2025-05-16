@@ -1,6 +1,6 @@
 #pragma once
 #include "../ACL/dsu.hpp"
-
+namespace kENN3N {
 template <typename T>
 struct MinimumSpanningTree {
   // public:
@@ -40,3 +40,4 @@ struct MinimumSpanningTree {
     vector<Data> v, g, ng;
     vector<vector<pair<int, T>>> adjg;
 };
+} // namespace kENN3N

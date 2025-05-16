@@ -1,5 +1,6 @@
 #ifndef ATCODER_SCC_HPP
 #define ATCODER_SCC_HPP 1
+// reference: AtCoder Library
 
 #include <algorithm>
 #include <cassert>

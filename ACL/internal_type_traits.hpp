@@ -1,5 +1,6 @@
 #ifndef ATCODER_INTERNAL_TYPE_TRAITS_HPP
 #define ATCODER_INTERNAL_TYPE_TRAITS_HPP 1
+// reference: AtCoder Library
 
 #include <cassert>
 #include <numeric>

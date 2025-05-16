@@ -1,5 +1,6 @@
 #ifndef ATCODER_FENWICKTREE_HPP
 #define ATCODER_FENWICKTREE_HPP 1
+// reference: AtCoder Library
 
 #include <cassert>
 #include <vector>

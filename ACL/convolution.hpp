@@ -1,6 +1,6 @@
 #ifndef ATCODER_CONVOLUTION_HPP
 #define ATCODER_CONVOLUTION_HPP 1
-
+// reference: AtCoder Library
 #include <algorithm>
 #include <array>
 #include <cassert>

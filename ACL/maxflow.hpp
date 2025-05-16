@@ -1,5 +1,6 @@
 #ifndef ATCODER_MAXFLOW_HPP
 #define ATCODER_MAXFLOW_HPP 1
+// reference: AtCoder Library
 
 #include <algorithm>
 #include <cassert>

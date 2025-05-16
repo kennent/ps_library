@@ -1,5 +1,6 @@
 #ifndef ATCODER_MATH_HPP
 #define ATCODER_MATH_HPP 1
+// reference: AtCoder Library
 
 #include <algorithm>
 #include <cassert>
